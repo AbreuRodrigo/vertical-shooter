@@ -15,6 +15,8 @@ public class EnemySpawner : MonoBehaviour {
 
 		min = Camera.main.ScreenToWorldPoint (new Vector3 (0, 0, 0)).x + enemySize.x;
 		max = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x - enemySize.x;
+
+		Random.seed = System.Environment.TickCount;
 	}
 
 	void Start() {

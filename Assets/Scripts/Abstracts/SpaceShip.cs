@@ -2,28 +2,21 @@
 using System.Collections;
 
 public abstract class SpaceShip : MonoBehaviour {
-	public int life;
-	public int force;
-	public int level;
-	public float speed;
-	public float deceleration;
+	public int lives = 1;
+	public int level = 1;
+	public float speed = 10.0f;
+	public float deceleration = 0.05f;
 
 	private Renderer renderer;
 
 	protected abstract void OnShoot();
 
-	public void TakeDamage(int damage) {
-		this.life -= damage;
+	public abstract void TakeDamage(int damage);
 
-		if(life <= 0){
-			this.Explode();
-		}
-	}
-
-	private void Explode() {
+	protected void Explode() {
 		EffectsController.instance.CreateEffect(transform.position, EffectType.Explosion, 2);
-		gameObject.SetActive(false);
-		Destroy(gameObject);
+		this.gameObject.SetActive(false);
+		Destroy(this.gameObject);
 	}
 
 	public void LevelUp() {
@@ -36,5 +29,13 @@ public abstract class SpaceShip : MonoBehaviour {
 
 	void OnBecameInvisible() {
 		Destroy(this.gameObject);
+	}
+
+	void OnTriggerEnter2D(Collider2D otherCollider) {
+		SpaceShip other = otherCollider.GetComponent<SpaceShip>();
+
+		if (other != null) {
+			this.TakeDamage(1);
+		}
 	}
 }

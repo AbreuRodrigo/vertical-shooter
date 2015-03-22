@@ -3,7 +3,24 @@ using System.Collections;
 
 public class EnemySpaceShip : SpaceShip {
 
-	protected override void OnShoot() {
+	private GameWorld game;
+
+	public int scoreAwards = 10;
+
+	protected override void OnShoot() {}
+
+	public override void TakeDamage(int damage){
+		this.lives -= damage;
+		
+		if(this.lives <= 0){
+			this.Explode();
+
+			game.SumUpScore(scoreAwards);
+		}
+	}
+
+	void Awake() {
+		game = GameObject.FindObjectOfType<GameWorld>();
 	}
 
 	void FixedUpdate() {
