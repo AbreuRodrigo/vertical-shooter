@@ -28,14 +28,18 @@ public class PlayerSpaceShip : SpaceShip {
 	}
 
 	void FixedUpdate() {
-		DoInputLogics();
+		if(!GameWorld.IsPaused()) {
+			DoInputLogics();
 
-		EnsurePosition();
+			EnsurePosition();
+		}
 	}
 
 	void Update() {
-		if(Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) {
-			gun.Shoot();
+		if (!GameWorld.IsPaused()) {
+			if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) {
+				gun.Shoot ();
+			}
 		}
 	}
 
@@ -70,7 +74,7 @@ public class PlayerSpaceShip : SpaceShip {
 			mouseMov = 
 				Camera.main.ScreenToWorldPoint(
 					new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 10)
-				) * Time.deltaTime * speed * 1.5f;
+				) * Time.deltaTime * speed * 1.2f;
 		} else {
 			if(mouseMov.x != 0){
 				if(mouseMov.x > 0){

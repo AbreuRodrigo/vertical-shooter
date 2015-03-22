@@ -14,7 +14,14 @@ public abstract class SpaceShip : MonoBehaviour {
 	public abstract void TakeDamage(int damage);
 
 	protected void Explode() {
-		EffectsController.instance.CreateEffect(transform.position, EffectType.Explosion, 2);
+		EffectsController.instance.CreateEffect(this.transform.position, EffectType.Explosion, 2);
+
+		SoundController.instance.PlayExplosionSound();
+
+		if("Enemy".Equals(this.gameObject.tag)){
+			EffectsController.instance.CreateEffect(this.transform.position, EffectType.ScoreUp, 1);
+		}
+
 		this.gameObject.SetActive(false);
 		Destroy(this.gameObject);
 	}

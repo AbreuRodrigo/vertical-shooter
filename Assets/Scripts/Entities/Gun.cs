@@ -22,6 +22,7 @@ public class Gun : MonoBehaviour {
 		if (CanAttack) {
 			shootCooldown = shootingRate;
 			actions();
+			SoundController.instance.PlayShootSound();
 		}
 	}
 				

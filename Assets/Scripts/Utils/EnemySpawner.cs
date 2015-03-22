@@ -17,9 +17,7 @@ public class EnemySpawner : MonoBehaviour {
 		max = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x - enemySize.x;
 
 		Random.seed = System.Environment.TickCount;
-	}
 
-	void Start() {
 		StartCoroutine("GenerateEnemies");
 	}
 
@@ -27,11 +25,13 @@ public class EnemySpawner : MonoBehaviour {
 		while(generateEnemies && enemy != null){
 			yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
 
-			float x = Random.Range(min + enemySize.x, max - enemySize.x);
+			if(!GameWorld.IsPaused() && !GameWorld.IsGameOver()){
+				float x = Random.Range(min + enemySize.x, max - enemySize.x);
 
-			Vector3 position = new Vector3(x, 10, 0);
+				Vector3 position = new Vector3(x, 10, 0);
 
-			Instantiate(enemy, position, Quaternion.identity);
+				Instantiate(enemy, position, Quaternion.identity);
+			}
 		}
 	}
 }
