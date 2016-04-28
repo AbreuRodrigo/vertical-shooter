@@ -1,9 +1,10 @@
 ﻿namespace VerticalShooter {
 
+	//This enumeration represents all possible states for the game itself
 	public enum GameState {
-		Menu,
+		GameMenu,
 		GamePlay,
-		Pause,
+		GamePause,
 		GameOver
 	}
 }
